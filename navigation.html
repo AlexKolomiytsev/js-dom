@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+	<style type="text/css">
+		.buttons {
+			margin-top: 100px;
+			width: 812px;
+			position: relative;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+		button {
+			width: 200px;
+			height: 100px;
+			border: none;
+			cursor: pointer;
+			font-size: 40px;
+		}
+		.addDel {
+			margin-top: 50px;
+			font-size: 20px;
+		}
+		#list {
+			background: #118DF0;
+			position: relative;
+		}
+		.items {
+			width: 200px;
+			text-align: center;
+			position: relative;
+			display: block;
+			width: 200px;
+			margin-top: 10px;
+			text-align: center;
+			color: #FBFFA3;
+		}
+		.active {
+			background: #FF4B68;
+		}
+
+	</style>
+	<script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.append,Element.prototype.after"></script>
+	<script src="jquery/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+	<div class="buttons">
+		<div class="buttonss">
+			<button type="button" class="choose" id="chooseLast">Last</button>
+			<button type="button" class="choose" id="chooseNext">Next</button>
+			<button type="button" class="choose" id="choosePrevious">Previous</button>
+			<button type="button" class="choose" id="chooseFirst">First</button>
+		</div>
+
+		<button type="button" class="addDel" id="addOnTop">Add on top</button>
+		<button type="button" class="addDel" id="addAtTheEnd">Add at the end</button>
+		<button type="button" class="addDel" id="replace">Replace</button>
+		<button type="button" class="addDel" id="deletee">Delete</button>
+		
+		<ul id="list">
+			<li class="items">element 1</li>
+			<li class="items">element 2</li>
+			<li class="items">element 3</li>
+			<li class="items">element 4</li>
+		</ul>
+		
+	</div> 
+	<script type="text/javascript">
+		var current = list.firstElementChild;
+		var newCurrent;
+		current.classList.add('active');
+
+		function deactiveItems() {
+			for (var i = 0; i<list.children.length;i++) {
+				if (list.children.length) {
+					list.children[i].classList.remove('active');
+				}
+			}
+		}
+		function activeFirst() {
+			deactiveItems();
+			current = list.firstElementChild;
+			current.classList.add('active');
+		}
+		function activeLast() {
+			deactiveItems();
+			current = list.lastElementChild;
+			current.classList.add('active');
+		}
+		function activeNext() {
+			deactiveItems();
+			current = current.nextElementSibling;
+			if (current == null) current = list.firstElementChild;
+			current.classList.add('active');
+
+		}
+		function activePrevious() {
+			deactiveItems();
+			current = current.previousElementSibling;
+			if (current == null) current = list.lastElementChild;
+			current.classList.add('active');
+		}
+		
+		function faddOnTop() {
+			list.firstElementChild.insertAdjacentHTML("beforeBegin","<li class='items'>element on top</li>");
+			current = list.firstElementChild;
+			deactiveItems();
+			current.classList.add('active');
+		}
+		function faddAtTheEnd() {
+			list.lastElementChild.insertAdjacentHTML("afterEnd","<li class='items'>element at the end</li>");
+			current = list.lastElementChild;
+			deactiveItems();
+			current.classList.add('active');
+		}
+		function freplace() {
+			var newTextElement = document.createTextNode('replaced element');
+			current.replaceChild(newTextElement, current.firstChild);
+		}
+		function fdeletee() {
+			if (current.nextElementSibling) {
+				newCurrent = current.nextElementSibling;
+			}
+			else {
+				newCurrent = current.previousElementSibling;
+			}
+			current.parentNode.removeChild(current);
+			newCurrent.classList.add('active');
+			current = newCurrent;
+		}
+		chooseFirst.addEventListener('click', activeFirst);
+		chooseLast.addEventListener('click', activeLast);
+		chooseNext.addEventListener('click', activeNext);
+		choosePrevious.addEventListener('click', activePrevious);
+
+		addOnTop.addEventListener('click', faddOnTop);
+		addAtTheEnd.addEventListener('click', faddAtTheEnd);
+		replace.addEventListener('click', freplace);
+		deletee.addEventListener('click', fdeletee);
+		
+
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+		var globalVar;
+
+		//global lexical environment = globalVar, ...;
+
+		function func1(a,b) { 
+			var c,d;
+
+			//lexical environment for func1 = a, b, c, d;
+			// [[scope]] = globalVar, ...;
+
+			function func2(h,g) {
+				var e,r;
+				//lexical environment for func2 = h, g, e, r;
+				//[[scope]] = parent lexical environment;
+			}
+		}
+		//замыкания нужны,чтобы сохранить в глобальном скоупе локальные переменные...
+		function f3() {
+			var sd = "sdadsa";
+
+			return function() {
+				//LE.[[scope]] = LE of f3.
+				console.log(sd);
+			}
+		}
+	</script>
+</body>
+</html>

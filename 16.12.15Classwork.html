@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Events</title>
+</head>
+<body>
+	<!--http://www.w3schools.com/jsref/dom_obj_event.asp-->
+	<div>
+		<ul>
+			<li id="item1">item 1</li>
+			<li id="item2">item 2</li>
+			<li id="item3">item 3</li>
+			<li id="item4">item 4</li>
+			<li id="item5">item 5</li>
+		</ul>
+	</div>
+	
+	<script type="text/javascript">
+		function handler() {
+			alert('handler for click in addEventListener!');
+		}
+		function handler2() {
+			alert('handler2 for click in addEventListener!');
+			//this. -- применяется к элементу на который происходит клик.
+		}
+		item1.addEventListener('click', handler);
+		item1.addEventListener('click', handler2);
+	
+		item1.removeEventListener('click', handler);
+		//function handler(e) {
+			//e.stopPropagation - остановка распространия событий.
+			//e.preventDefault - отменет действия по умолчанию.
+		//}
+
+	</script>
+</body>
+</html>

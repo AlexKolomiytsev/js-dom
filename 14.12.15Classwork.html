@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+
+	function Human(firstname, lastname, birthday, education, sex) {
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.birthday = birthday || new Date();
+		this.education = education || null;
+		this.sex = sex;
+		this.getFullName = function() {
+			return this.firstname + this.lastname;
+		};
+		this.isAdult = function() {
+			var age = new Date().getFullYear() - this.birthday.getFullYear();
+			return age >= 18;
+			//if (age >= 18) return true;
+			//else return false;
+		};
+		this.isEducated = function() {
+			return this.education != undefined && this.education != null;
+			//if(!this.education) return false;
+			//else return true;
+		};
+	}
+
+	var human1 = new Human(
+		'Alex',
+		'Kolomiytsev',
+		new Date(1994, 2, 26),
+		'bachelor', 
+		'male'
+	);
+	var human2 = new Human(
+		'Vasya', 
+		'Pupkin', 
+		new Date(1992, 7, 11), 
+		'high', 
+		'male'
+	);
+
+	console.log(human1.getFullName());
+	console.log(human2.getFullName());
+	console.log('Is ' + human2.firstname + " educated: " + human2.isEducated());
+	console.log('Is ' + human1.firstname + " adult: " + human1.isAdult());
+	//console.log(new Date().getFullYear());
+
+	var method = human1.getFullName;
+	console.log("method = " + method());
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Browser Object Model</title>
+</head>
+<body>
+	<div>
+		<button type="button" id="displayWindowProps">Show window properties</button>
+		<button type="button" id="openNewWindow">Open new window</button>
+		<button type="button" id="displayNewWindowProps">Show new window properties</button>
+		<button type="button" id="resizeToButton">ResizeTo new window</button>
+		<button type="button" id="resizeByButton">ResizeBy current window</button>
+		<button type="button" id="scrollNewWindow">Scroll new window</button>
+		<button type="button" id="scrollCurrentWindow">Scroll current window</button>
+		<button type="button" id="focuss">work with focus</button>
+		<br/>
+		
+		
+		<p class="windowProps"></p>
+	</div>
+
+
+	<script type="text/javascript">
+
+	function displayWindowProperties(win) {
+		var result = '';
+
+		result += '<b>closed</b> = ' + win.closed + '<br/>';
+		result += '<b>innerHeight</b> = ' + win.innerHeight + '<br/>';
+		result += '<b>ineerWidth</b> = ' + win.innerWidth + '<br/>';
+		result += '<b>outerHeight</b> = ' + win.outerHeight + '<br/>';
+		result += '<b>outerWidth</b> = ' + win.outerWidth + '<br/>';
+		result += '<b>name</b> = ' + win.name + '<br/>';
+		result += '<b>screenX</b> = ' + win.screenX + '<br/>';
+		result += '<b>screenY</b> = ' + win.screenY + '<br/>';
+		result += '<b>scrollX</b> = ' + win.scrollX + '<br/>';
+		result += '<b>scrollY</b> = ' + win.scrollY + '<br/>';
+		return result;
+	}
+
+	var windowPropsButton = document.getElementById('displayWindowProps');
+
+	windowPropsButton.onclick = function () {
+		var windowPropsParagraph = document.getElementsByClassName('windowProps')[0];
+		windowPropsParagraph.innerHTML = displayWindowProperties(window);
+	};
+
+	var newTab;
+	var openNewWindowButton = document.getElementById('openNewWindow');
+	openNewWindowButton.onclick = function () {
+		newTab = open("","_blank", "width=150, height=150");
+	};
+
+	//cout properties of new window
+	var displayNewWindowProperties = document.getElementById('displayNewWindowProps');
+	displayNewWindowProperties.onclick = function () {
+		newTab.document.write(displayWindowProperties(newTab));
+		newTab.focus();
+	};
+
+	var resizeNewWindow = document.getElementById('resizeToButton');
+	resizeNewWindow.onclick = function () {
+		newTab.resizeBy(50, 50);
+		newTab.focus();
+	};
+
+	var resizeCurrentWindow = document.getElementById('resizeByButton');
+	resizeCurrentWindow.onclick = function () {
+		window.resizeBy(100,100); //не работает, потому что текущая страница находится не в "окне", а во вкладке
+		window.focus();
+	};
+	var scrollNewWin = document.getElementById('scrollNewWindow');
+	scrollNewWin.onclick = function () {
+		newTab.scrollBy(200, 250);
+		newTab.focus();
+	};
+	var scrollCurrentWin = document.getElementById('scrollCurrentWindow');
+	scrollCurrentWin.onclick = function () {
+		window.scrollTo(200, 250); //не работает, потому что текущая страница находится не в "окне", а во вкладке
+	};
+
+	var foc = document.getElementById('focuss');
+	var newTabb;
+	foc.onclick = function() {
+		//newTabb = open("","_blank", "width=200, height=200");
+		newTabb = open("","_blank", "width=150, height=150");
+		newTabb.focus();
+
+		newTabb.setTimeout(function(){
+			newTabb.document.write("blur");
+			newTabb.blur();
+			//window.focus();
+		}, 3000);
+		//newTabb.setTimeout(newTabb.close, 3000);
+		//window.setTimeout(focus, 3000);
+		//window.focus();
+
+
+		//function closeWin() {
+		//	newTabb.close();
+		//}
+	};
+	</script>
+</body>
+</html>

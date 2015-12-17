@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+	<style type="text/css">
+		.buttons {
+			margin-top: 100px;
+			width: 812px;
+			position: relative;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+		button {
+			width: 200px;
+			height: 100px;
+			border: none;
+			cursor: pointer;
+			font-size: 40px;
+		}
+		.addDel {
+			margin-top: 50px;
+			font-size: 20px;
+		}
+		#list {
+			background: #118DF0;
+			position: relative;
+		}
+		.items {
+			width: 200px;
+			text-align: center;
+			position: relative;
+			display: block;
+			width: 200px;
+			margin-top: 10px;
+			text-align: center;
+			color: #FBFFA3;
+		}
+		.active {
+			background: #FF4B68;
+		}
+
+	</style>
+	<script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.append,Element.prototype.after"></script>
+	<script src="jquery/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+	<div class="buttons">
+		<div class="buttonss">
+			<button type="button" class="choose" id="chooseLast">Last</button>
+			<button type="button" class="choose" id="chooseNext">Next</button>
+			<button type="button" class="choose" id="choosePrevious">Previous</button>
+			<button type="button" class="choose" id="chooseFirst">First</button>
+		</div>
+
+		<button type="button" class="addDel" id="addOnTop">Add on top</button>
+		<button type="button" class="addDel" id="addAtTheEnd">Add at the end</button>
+		<button type="button" class="addDel" id="replace">Replace</button>
+		<button type="button" class="addDel" id="deletee">Delete</button>
+		
+		<ul id="list">
+			<li class="items">element 1</li>
+			<li class="items">element 2</li>
+			<li class="items">element 3</li>
+			<li class="items">element 4</li>
+		</ul>
+		
+	</div> 
+	<script type="text/javascript">
+		var current = $('.items').eq(0);
+		var newCurrent;
+		current.addClass('active');
+		function deactiveItems() {
+			for (var i = 0; i < $('.items').length; i++) {
+				if ($('.items').length) {
+					$('.items').eq(i).removeClass('active');
+				}
+			}
+		}
+		function activeFirst() {
+			deactiveItems();
+			current = $('.items').eq(0);
+			current.addClass('active');
+		}
+		function activeLast() {
+			deactiveItems();
+			current = $('.items').eq(length-1);
+			current.addClass('active');
+		}
+		function activeNext() {
+			//deactiveItems();
+			//if (current == $('.items').eq(length-1)) {
+			if ($('.active').is(':last-child')) {
+				current = $('.items').eq(0);	
+			}
+			else {
+				current = current.next();
+			}
+			deactiveItems();
+			current.addClass('active');
+		}
+		function activePrevious() {
+			if ($('.active').is(':first-child')) {
+				current = $('.items').eq(length-1);	
+			}
+			else {
+				current = current.prev();
+			}
+			deactiveItems();
+			current.addClass('active');
+		}
+		
+		function faddOnTop() {
+			$('#list').prepend("<li class='items'>element on top</li>");
+			current = $('.items').eq(0);
+			deactiveItems();
+			current.addClass('active')
+		}
+		function faddAtTheEnd() {
+			$('#list').append("<li class='items'>element on bottom</li>");
+			current = $('.items').eq(length-1);
+			deactiveItems();
+			current.addClass('active')
+		}
+		function freplace() {
+			//var newTextElement = document.createTextNode('replaced element');
+			//current.replaceChild(newTextElement, current.firstChild);
+			current.replaceWith("<li class='items active'>replaced element</li>");
+			current = $('.active');
+		}
+		function fdeletee() {
+			if ($('.active').is(':last-child')) {
+				current = current.prev();
+			}
+			else {
+				current = current.next();	
+			}
+			$('.active').remove();
+			current.addClass('active');
+		}
+		
+		$('#chooseFirst').click(activeFirst);
+		$('#chooseLast').click(activeLast);
+		$('#chooseNext').click(activeNext);
+		$('#choosePrevious').click(activePrevious);
+
+		$('#addOnTop').click(faddOnTop);
+		$('#addAtTheEnd').click(faddAtTheEnd);
+		$('#replace').click(freplace);
+		$('#deletee').click(fdeletee);
+	</script>
+</body>
+</html>
+

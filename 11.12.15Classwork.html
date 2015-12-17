@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="jquery/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+	//Homework
+	/*
+		1.
+		- add on top
+		- add at the end
+		- replace current element
+		- delete current
+	*/
+
+	function Car(name, color) {
+		//this = {}; // неявно создается объект
+
+		this.name = name || "car";
+		this.color = color || "red";
+
+		//return this; // не обязательно.
+	}
+
+
+	car = new Car("carrrr");
+	//console.log(car.name, car.color);
+
+	function Accumulator(value) {
+		this.value = value;
+		//this.read = function() {
+		//	this.value += +prompt("Your value: ");
+		//}
+	}
+	Accumulator.prototype.read = function() {
+		//this.value += +prompt("Your value: ", 0);//второй параметр означает дефолтное значение, если пользователь ничего не ввел.
+	}
+
+	var accum = new Accumulator(1);
+	accum.read();
+	accum.read();
+	console.log(accum.value);
+
+
+	//CLOSURE
+	for (var i = 0; i<5;i++) {
+		(function(j) { //j - локальная переменная.
+			setTimeout(function(item) {
+				console.log(item);
+			}, 2000*j);
+		})(i);
+	}
+
+
+
+	</script>
+</body>
+</html>

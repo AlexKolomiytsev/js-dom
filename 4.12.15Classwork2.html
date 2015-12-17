@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+
+	function urlArgs(url) {
+		var q = url.indexOf('?');
+		if (q == -1) document.write("Your url has no 'search part'");
+		var query = url.substring(q+1);
+
+		var args = {};
+		//var query = location.search.substring(1);
+		var pairs = query.split("&");
+
+		for (var i = 0; i < pairs.length; i++) {
+			var pos = pairs[i].indexOf('=');
+			if (pos == -1) continue;
+			var name = pairs[i].substring(0, pos);
+			var value = pairs[i].substring(pos+1);
+			value = decodeURIComponent(value);
+			args[name] = value;
+		}
+
+		return args;
+	}
+
+
+	var urls = ['http://lms.brainacad.com/mod/book/view.php?id=419',
+	'http://lms.brainacad.com/mod/book/view.php?id=418&chapterid=4600',
+	'http://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_resizeby',
+	'http://www.softtime.ru/forum/read.php?id_forum=1&id_theme=8481',
+	'https://www.ukraine.com.ua/hostingcart/completeorder/?invoice=2131824'];
+
+	for (var i = 0; i < urls.length; i++) {
+		document.write("url #" + i + "<br>");
+		var Func = urlArgs(urls[i]);
+		for (props in Func) {
+			document.write(" +++ "+props + " = " + Func[props] + "<br>");
+		}
+	}
+
+	// homework about location
+	// 1. переделать функцию таким образом чтобы она принимала url в виде строки
+	// 2. вызвать ее с 5 разными аргументами
+	// 3. вывести на экран полученные коллекции
+		// 
+		// // // // // 
+		//window.scrollBy(xnum,ynum)
+		//xnum 	Number 	Required. How many pixels to scroll by, along the x-axis (horizontal). Positive values will scroll to the left, while negative values will scroll to the right
+		//ynum 	Number 	Required. How many pixels to scroll by, along the y-axis (vertical). Positive values will scroll down, while negative values scroll up
+
+		//window.scrollTo(xpos,ypos)
+		//xpos 	Number 	Required. The coordinate to scroll to, along the x-axis (horizontal), in pixels
+		//ypos 	Number 	Required. The coordinate to scroll to, along the y-axis (vertical), in pixels
+	</script>
+</body>
+</html>

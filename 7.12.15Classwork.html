@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	 <div class="child">
+        <span>Всего есть 12 типов узлов, некоторые из них:</span>
+        <ul>
+            <li id="firstLi">Документ — точка входа в DOM.</li>
+            <li id="secondLi">Элементы — основные строительные блоки.</li>
+            <li id="thirdLi">Текстовые узлы — содержат, собственно, текст.</li>
+            <li id="fourthLi">Комментарии</li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+    	var firstLi = document.body.firstElementChild.firstElementChild.nextElementSibling.firstElementChild;
+    	document.write(firstLi.innerHTML);
+		console.log(document.body.firstElementChild.firstElementChild.nextElementSibling.lastElementChild);
+		console.log(document.body.firstElementChild.firstElementChild.nextElementSibling.children.length);
+		console.log(document.body.firstElementChild.childNodes.length);
+		console.log(document.body.firstElementChild.children.length);
+
+		// дз - задать всем элементам свой уникальный id и вывести в виде "дерева" все потомки body (recursion);
+		// -- div d1
+		// ---- span s1
+		// ---- ul u1
+		// ------ li
+		// ------ li
+		// ------ li
+		// ------ li
+		
+		function printCollectionOnLevel(collection, level) {
+			if(!collection.length) { //проверяем присутствие свойства length у collection 
+				return;
+			}
+			for(var i = 0; i < collection.length; i++) {
+				var str = "--";
+				for (var l = 0; l < level; l++) {
+					str += str;
+				}
+				console.log(str + " " + collection[i].tagName + " id = " + collection[i].id);
+
+				if(collection[i].children.length) {
+					printCollectionOnLevel(collection[i].children, level + 1)
+				}
+			}
+		}
+
+		printCollectionOnLevel(document.body.children, 0);
+	</script>
+</body>
+</html>
