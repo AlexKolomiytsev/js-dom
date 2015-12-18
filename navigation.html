@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>nav JS</title>
 	
 	<style type="text/css">
 		.buttons {
@@ -74,61 +74,91 @@
 
 		function deactiveItems() {
 			for (var i = 0; i<list.children.length;i++) {
-				if (list.children.length) {
-					list.children[i].classList.remove('active');
-				}
+				list.children[i].classList.remove('active');
 			}
 		}
 		function activeFirst() {
-			deactiveItems();
-			current = list.firstElementChild;
-			current.classList.add('active');
+			if (list.children.length) {
+				deactiveItems();
+				current = list.firstElementChild;
+				current.classList.add('active');
+			}
+			else {
+				alert("You have not anyone elements");
+			}
+			
 		}
 		function activeLast() {
-			deactiveItems();
-			current = list.lastElementChild;
-			current.classList.add('active');
+			if (list.children.length) {
+				deactiveItems();
+				current = list.lastElementChild;
+				current.classList.add('active');
+			}
+			else {
+				alert("You have not anyone elements");
+			}
 		}
 		function activeNext() {
-			deactiveItems();
-			current = current.nextElementSibling;
-			if (current == null) current = list.firstElementChild;
-			current.classList.add('active');
+			if (list.children.length) {
+				deactiveItems();
+				current = current.nextElementSibling;
+				if (current == null) current = list.firstElementChild;
+				current.classList.add('active');
+			}
+			else {
+				alert("You have not anyone elements");
+			}
 
 		}
 		function activePrevious() {
-			deactiveItems();
-			current = current.previousElementSibling;
-			if (current == null) current = list.lastElementChild;
-			current.classList.add('active');
+			if (list.children.length) {
+				deactiveItems();
+				current = current.previousElementSibling;
+				if (current == null) current = list.lastElementChild;
+				current.classList.add('active');
+			}
+			else {
+				alert("You have not anyone elements");
+			}
 		}
 		
 		function faddOnTop() {
-			list.firstElementChild.insertAdjacentHTML("beforeBegin","<li class='items'>element on top</li>");
+			list.insertAdjacentHTML("afterBegin","<li class='items'>element on top</li>");
 			current = list.firstElementChild;
 			deactiveItems();
 			current.classList.add('active');
 		}
 		function faddAtTheEnd() {
-			list.lastElementChild.insertAdjacentHTML("afterEnd","<li class='items'>element at the end</li>");
+			list.insertAdjacentHTML("beforeEnd","<li class='items'>element at the end</li>");
 			current = list.lastElementChild;
 			deactiveItems();
 			current.classList.add('active');
 		}
 		function freplace() {
-			var newTextElement = document.createTextNode('replaced element');
-			current.replaceChild(newTextElement, current.firstChild);
-		}
-		function fdeletee() {
-			if (current.nextElementSibling) {
-				newCurrent = current.nextElementSibling;
+			if (list.children.length) {
+				var newTextElement = document.createTextNode('replaced element');
+				current.replaceChild(newTextElement, current.firstChild);
 			}
 			else {
-				newCurrent = current.previousElementSibling;
+				alert("Nothing to replace");
 			}
-			current.parentNode.removeChild(current);
-			newCurrent.classList.add('active');
-			current = newCurrent;
+		}
+		function fdeletee() {
+			if (list.children.length) {
+				if (current.nextElementSibling) {
+					newCurrent = current.nextElementSibling;
+				}
+				else {
+					newCurrent = current.previousElementSibling;
+				}
+				current.parentNode.removeChild(current);
+				newCurrent.classList.add('active');
+				current = newCurrent;
+			}
+			else {
+				alert("Nothing to delete");
+			}
+			
 		}
 		chooseFirst.addEventListener('click', activeFirst);
 		chooseLast.addEventListener('click', activeLast);

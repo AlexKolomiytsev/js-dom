@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>nav JQuery</title>
 	
 	<style type="text/css">
 		.buttons {
@@ -73,42 +73,63 @@
 		current.addClass('active');
 		function deactiveItems() {
 			for (var i = 0; i < $('.items').length; i++) {
-				if ($('.items').length) {
-					$('.items').eq(i).removeClass('active');
-				}
+				$('.items').each(function() {
+					$(this).removeClass('active');
+				});
+				
+				//$('.items').eq(i).removeClass('active');
 			}
 		}
 		function activeFirst() {
-			deactiveItems();
-			current = $('.items').eq(0);
-			current.addClass('active');
+			if ($('.items').length) {
+				deactiveItems();
+				current = $('.items').eq(0);
+				current.addClass('active');
+			}
+			else {
+				alert("You have not anyone elements");
+			}
+				
 		}
 		function activeLast() {
-			deactiveItems();
-			current = $('.items').eq(length-1);
-			current.addClass('active');
+			if ($('.items').length) {
+				deactiveItems();
+				current = $('.items').eq(length-1);
+				current.addClass('active');
+			}
+			else {
+				alert("You have not anyone elements");
+			}
 		}
 		function activeNext() {
-			//deactiveItems();
-			//if (current == $('.items').eq(length-1)) {
-			if ($('.active').is(':last-child')) {
-				current = $('.items').eq(0);	
+			if ($('.items').length) {
+				if ($('.active').is(':last-child')) {
+					current = $('.items').eq(0);	
+				}
+				else {
+					current = current.next();
+				}
+				deactiveItems();
+				current.addClass('active');
 			}
 			else {
-				current = current.next();
+				alert("You have not anyone elements");
 			}
-			deactiveItems();
-			current.addClass('active');
 		}
 		function activePrevious() {
-			if ($('.active').is(':first-child')) {
-				current = $('.items').eq(length-1);	
+			if ($('.items').length) {
+				if ($('.active').is(':first-child')) {
+					current = $('.items').eq(length-1);	
+				}
+				else {
+					current = current.prev();
+				}
+				deactiveItems();
+				current.addClass('active');
 			}
 			else {
-				current = current.prev();
+				alert("You have not anyone elements");
 			}
-			deactiveItems();
-			current.addClass('active');
 		}
 		
 		function faddOnTop() {
@@ -124,20 +145,29 @@
 			current.addClass('active')
 		}
 		function freplace() {
-			//var newTextElement = document.createTextNode('replaced element');
-			//current.replaceChild(newTextElement, current.firstChild);
-			current.replaceWith("<li class='items active'>replaced element</li>");
-			current = $('.active');
-		}
-		function fdeletee() {
-			if ($('.active').is(':last-child')) {
-				current = current.prev();
+			if ($('.items').length) {
+				current.replaceWith("<li class='items active'>replaced element</li>");
+				current = $('.active');
 			}
 			else {
-				current = current.next();	
+				alert("Nothing to replace");
 			}
-			$('.active').remove();
-			current.addClass('active');
+			
+		}
+		function fdeletee() {
+			if ($('.items').length) {
+				if ($('.active').is(':last-child')) {
+					current = current.prev();
+				}
+				else {
+					current = current.next();	
+				}
+				$('.active').remove();
+				current.addClass('active');
+			}
+			else {
+				alert("Nothing to delete");
+			}
 		}
 		
 		$('#chooseFirst').click(activeFirst);
